@@ -1,0 +1,62 @@
+<div class="container search-table">
+  <div class="search-box">
+    <div class="row">
+      <div class="col-md-9">
+        <input
+          type="text"
+          id="myInput"
+          class="form-control"
+          [formControl]="queryField"
+          placeholder="Pesquisar por Nome, E-mail ou Nome do usuário"
+        />
+      </div>
+      <div class="col-auto button-search">
+        <button class="but btn-lg btn-success" (click)="onSearch()">
+          Pesquisar
+        </button>
+      </div>
+    </div>
+    <div>
+      <div class="div-inline">
+        <label for="filters">Filtros:</label>
+      </div>
+      <div class="div-inline" *ngFor="let web of filtersList">
+        <div class="div-inline">
+          <label>
+            <input class="form-check-input" checked type="checkbox" [value]="web.id" (change)="onCheckboxChange($event)" />
+            {{web.label}}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="search-list">
+    <h3>{{ total }} Registros encontrados.</h3>
+    <table class="table" id="myTable">
+      <thead>
+        <tr>
+          <th>Nome do usuário</th>
+          <th>Senha</th>
+          <th>Ativo</th>
+          <th>Data nascimento</th>
+          <th>Nome</th>
+          <th>Sobre nome</th>
+          <th>E-mail</th>
+          <th>Telefone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let result of results$ | async">
+          <td>{{ result.username }}</td>
+          <td>{{ result.password }}</td>
+          <td>{{ result.isEnabled }}</td>
+          <td>{{ result.registerDate | date : 'dd/MM/yyyy'}}</td>
+          <td>{{ result.name }}</td>
+          <td>{{ result.surname }}</td>
+          <td>{{ result.email }}</td>
+          <td>{{ result.phone }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
